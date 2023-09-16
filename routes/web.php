@@ -25,10 +25,11 @@ Route::middleware(['auth'])->group(function(){
         Route::get('main',[MainController::class,'index']);
         //group menu
         Route::prefix('menus')->group(function(){
-            Route::get('list',[MenuController::class,'list'])->name('listMenu');
+            Route::get('list',[MenuController::class,'getList'])->name('listMenu');
 
             Route::get('add',[MenuController::class,'create'])->name('addMenu');
-
+            Route::post('add',[MenuController::class,'store'])->name('postAddMenu');
+            Route::delete('destroy',[MenuController::class,'destroy']);
 
         });
     });

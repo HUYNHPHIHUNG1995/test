@@ -22,7 +22,7 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {
-
+        //có thể tự tạo Request moiws như menu
         $this->validate($request,
             [
                 'email'=>'required|email:filter',

@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
+
+    /**
+     * Fields that can be mass assigned.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'parent_id',
+        'description',
+        'content',
+        'active'
+    ];
 }
