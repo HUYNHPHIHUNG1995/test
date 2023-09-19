@@ -6,29 +6,41 @@ class Helper
     //vao file composer.json khai bao o autoload sau do chay cau lenh
     // composer dump-autoload
 
-    public static function menu($menus,$parent_id=0,$char='')
+    public static function menu($menus, $parent_id = 0, $char = '')
     {
-        //$char la ky tu de phan biet menu con va cha
+        $html = '';
 
-        $html='';
-        foreach ($menus as $key=>$menu)
-        {
-            if($menu->parent_id==$parent_id)
-            {
-                $html.='
+        foreach ($menus as $key => $menu) {
+            if ($menu->parent_id == $parent_id) {
+                $html .= '
                     <tr>
-                        <td>'.$menu->id .'</td>
-                      <td>'.$char . $menu->name .'</td>
-                      <td>'.$menu->active .'</td>
-                      <td>'.$menu->updated_at .'</td>
-                      <td><a class="btn btn-primary btn-sm" href="/admin/menus/edit/'.$menu->id.'"><i class="fas fa-edit"> Sửa</i></></td>
-                       <td><a class="btn btn-danger btn-sm" href="#" onclick="removeRow('.$menu->id.',\'/admin/menus/destroy\')"><i class="fas fa-trash"> Xóa</i></></td>
-                     </tr>
+                        <td>' . $menu->id . '</td>
+                        <td>' . $char . $menu->name . '</td>
+                        <td>' . self::active($menu->active) . '</td>
+                        <td>' . $menu->updated_at . '</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm" href="/admin/menus/edit/' . $menu->id . '">Sửa
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="btn btn-danger btn-sm"
+                                onclick="removeRow(' . $menu->id . ',\'/admin/menus/destroy\')">Xóa
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
                 ';
-                unset($menus[$key]);//xoa bot cai da lay ra roi cho nhe
-                $html.=self::menu($menus,$menu->id,$char.'--');
+
+                unset($menus[$key]);
+
+                $html .= self::menu($menus, $menu->id, $char . '|--');
             }
         }
+
         return $html;
+    }
+    public static function active($active = 0): string
+    {
+        return $active == 0 ? '<span class="btn btn-danger btn-xs">NO</span>'
+            : '<span class="btn btn-success btn-xs">YES</span>';
     }
 }

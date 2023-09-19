@@ -29,7 +29,10 @@ Route::middleware(['auth'])->group(function(){
 
             Route::get('add',[MenuController::class,'create'])->name('addMenu');
             Route::post('add',[MenuController::class,'store'])->name('postAddMenu');
-            Route::delete('destroy',[MenuController::class,'destroy']);
+            Route::get('edit/{menu}',[MenuController::class,'edit']);
+            Route::post('edit/{menu}',[MenuController::class,'postEdit']);
+
+            Route::DELETE('destroy',[MenuController::class,'destroy']);
 
         });
     });

@@ -35,7 +35,21 @@ class MenuService
         return Menu::orderbyDesc('id')->paginate(20);
 
     }
+    public function edit($request,$menu)
+    {
+        //trong list danh muc de chon co chinh no nen ko dc chon chinh no
+        if ($request->input('parent_id') != $menu->id) {
+            $menu->parent_id = (int)$request->input('parent_id');
+        }
 
+        $menu->name = (string)$request->input('name');
+        $menu->description = (string)$request->input('description');
+        $menu->content = (string)$request->input('content');
+        $menu->active = (string)$request->input('active');
+        $menu->save();
+        Session::flash('success', 'Cập nhật thành công Danh mục');
+        return true;
+    }
     public function destroy($request)
     {
         $id=(int)$request->input('id');
@@ -47,4 +61,5 @@ class MenuService
         }
         return false;
     }
+
 }
