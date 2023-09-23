@@ -22,3 +22,21 @@ function removeRow(id, url) {
         })
     }
 }
+
+//upload file
+$('#upload').change(function(){
+    const form=new FormData();//tao form submit ajax
+    form.append('file',$(this)[0].files[0]);//lay du lieu tu form
+    $.ajax({
+       //cau hinh cho ajax
+       processData: false,//khong cho bien thanh chuoi
+       contentType:false,//dung de upload file
+        type:'JSON',
+        data:form,
+        url:'/admin/upload/services',
+        success:function(result)
+        {
+
+        }
+    });
+});

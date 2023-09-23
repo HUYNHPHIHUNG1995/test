@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Admin\Users\LoginController;
 use \App\Http\Controllers\Admin\MainController;
 use \App\Http\Controllers\Admin\MenuController;
+use \App\Http\Controllers\Admin\UploadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +36,19 @@ Route::middleware(['auth'])->group(function(){
             Route::DELETE('destroy',[MenuController::class,'destroy']);
 
         });
+        //group products
+        Route::prefix('products')->group(function(){
+            Route::get('list',[MenuController::class,'getList'])->name('listMenu');
+
+            Route::get('add',[MenuController::class,'create'])->name('addMenu');
+            Route::post('add',[MenuController::class,'store'])->name('postAddMenu');
+            Route::get('edit/{menu}',[MenuController::class,'edit']);
+            Route::post('edit/{menu}',[MenuController::class,'postEdit']);
+
+            Route::DELETE('destroy',[MenuController::class,'destroy']);
+        });
+        //upload
+        Route::post('upload/services',[UploadController::class,'store']);
     });
 
 });
