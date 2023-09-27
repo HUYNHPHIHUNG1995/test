@@ -17,12 +17,19 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Navbar Search -->
-
+        <li>
+            <p>
+                <a href="{{route('logout')}}" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-log-out"></span> Đăng xuất
+                </a>
+            </p>
+        </li>
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
+
     </ul>
   </nav>
   <!-- /.navbar -->

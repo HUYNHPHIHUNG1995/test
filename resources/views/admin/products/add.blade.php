@@ -84,7 +84,12 @@
 @endsection
 
 @section('footer')
+    {{-- thay the form content --}}
     <script>
-        CKEDITOR.replace('content');
+        ClassicEditor
+            .create( document.querySelector( '#content' ) )
+            .catch( error => {
+                console.error( error );
+            } );
     </script>
 @endsection

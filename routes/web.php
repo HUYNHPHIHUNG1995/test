@@ -5,6 +5,7 @@ use \App\Http\Controllers\Admin\Users\LoginController;
 use \App\Http\Controllers\Admin\MainController;
 use \App\Http\Controllers\Admin\MenuController;
 use \App\Http\Controllers\Admin\UploadController;
+use \App\Http\Controllers\Admin\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,11 +16,14 @@ use \App\Http\Controllers\Admin\UploadController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//bat buoc dat ten login de su dung auth tu dong quay ve trang login
 Route::get('admin/users/login',[LoginController::class,'index'])->name('login');
 Route::post('admin/users/login/store',[LoginController::class,'store'])->name('postLogin');
 
 //admin,group auth
 Route::middleware(['auth'])->group(function(){
+    //logout
+    Route::get('logout',[LoginController::class,'logout'])->name('logout');
     //group admin
     Route::prefix('admin')->group(function(){
         Route::get('/',[MainController::class,'index'])->name('admin');
@@ -38,14 +42,10 @@ Route::middleware(['auth'])->group(function(){
         });
         //group products
         Route::prefix('products')->group(function(){
-            Route::get('list',[MenuController::class,'getList'])->name('listMenu');
 
-            Route::get('add',[MenuController::class,'create'])->name('addMenu');
-            Route::post('add',[MenuController::class,'store'])->name('postAddMenu');
-            Route::get('edit/{menu}',[MenuController::class,'edit']);
-            Route::post('edit/{menu}',[MenuController::class,'postEdit']);
+            Route::get('add',[ProductController::class,'create'])->name('getAddProduct');//load trang addproduct
+            Route::post('add',[ProductController::class,'store']);
 
-            Route::DELETE('destroy',[MenuController::class,'destroy']);
         });
         //upload
         Route::post('upload/services',[UploadController::class,'store']);

@@ -18,6 +18,16 @@ class UploadController extends Controller
 
     public function store(Request $request)
     {
-        $this->upload->store($request);
+       // php artisan storage:link chay lenh nay
+
+        $url = $this->upload->store($request);
+        if ($url !== false) {
+            return response()->json([
+                'error' => false,
+                'url'   => $url
+            ]);
+        }
+
+        return response()->json(['error' => true]);
     }
 }
