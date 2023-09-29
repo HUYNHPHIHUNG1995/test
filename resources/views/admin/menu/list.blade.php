@@ -9,7 +9,7 @@
                 <th>Name</th>
                 <th>Active</th>
                 <th>Update</th>
-                <th>&nbsp;</th>
+                <th class="text-center">Thao tác</th>
             </tr>
             </thead>
             <tbody>

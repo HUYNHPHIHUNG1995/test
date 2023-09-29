@@ -18,8 +18,8 @@ class Helper
                         <td>' . $char . $menu->name . '</td>
                         <td>' . self::active($menu->active) . '</td>
                         <td>' . $menu->updated_at . '</td>
-                        <td>
-                            <a class="btn btn-primary btn-sm" href="/admin/menus/edit/' . $menu->id . '">Sửa
+                        <td class="text-center">
+                            <a class="btn btn-primary btn-sm edit" href="/admin/menus/edit/' . $menu->id . '">Sửa
                                 <i class="fas fa-edit"></i>
                             </a>
                             <a href="#" class="btn btn-danger btn-sm"

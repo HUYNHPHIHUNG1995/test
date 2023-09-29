@@ -88,7 +88,30 @@
 
                 </ul>
             </li>
+            {{--Quanlyuser--}}
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-store-alt"></i>
+                    <p> Tài khoản
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('getAddProduct')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Thêm Tài khoản</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('getListUser')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Danh Sách tài khoản</p>
+                        </a>
+                    </li>
 
+                </ul>
+            </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

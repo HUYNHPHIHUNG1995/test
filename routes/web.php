@@ -6,6 +6,7 @@ use \App\Http\Controllers\Admin\MainController;
 use \App\Http\Controllers\Admin\MenuController;
 use \App\Http\Controllers\Admin\UploadController;
 use \App\Http\Controllers\Admin\ProductController;
+use \App\Http\Controllers\Admin\Users\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +39,11 @@ Route::middleware(['auth'])->group(function(){
             Route::post('edit/{menu}',[MenuController::class,'postEdit']);
 
             Route::DELETE('destroy',[MenuController::class,'destroy']);
+
+        });
+        //group user
+        Route::prefix('user')->group(function (){
+            Route::get('list',[UserController::class,'index'])->name('getListUser');
 
         });
         //group products

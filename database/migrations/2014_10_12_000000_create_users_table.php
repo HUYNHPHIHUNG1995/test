@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->string('phone',20)->nullable();
-            $table->string('province_id',10)->nullable();
-            $table->string('district_id',10)->nullable();
-            $table->string('ward_id',10)->nullable();
-            $table->string('address',10)->nullable();
-            $table->string('image',10)->nullable();
+            $table->string('province_id',255)->nullable();
+            $table->string('district_id',255)->nullable();
+            $table->string('ward_id',255)->nullable();
+            $table->string('address',255)->nullable();
+            $table->string('image',255)->nullable();
             $table->dateTime('birthday')->nullable();
             $table->text('description')->nullable();
             $table->text('user_agent')->nullable();
