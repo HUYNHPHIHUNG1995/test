@@ -36,9 +36,11 @@
                 <option data-select2-id="40">Washington</option>
             </select>
         </div>
-        <div class="col-sm-4">
-            <a class="btn btn-danger " href="">Thêm mới thành viên
-                <i class="fas fa-add"></i>
+        <div class="col-sm-4" >
+
+            <a class="btn btn-danger " href="" style="font-size: 13px">
+                <i class="fas fa-plus"></i>
+                Thêm mới thành viên
             </a>
         </div>
     </div>
