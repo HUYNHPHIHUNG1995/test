@@ -46,8 +46,8 @@ Route::middleware(['auth'])->group(function(){
         //group user
         Route::prefix('user')->group(function (){
             Route::get('list',[UserController::class,'index'])->name('getListUser');
-            Route::get('add',[UserController::class,'create'])->name('createUser');
-            Route::post('add',[UserController::class,'store'])->name('postAddUser');
+            Route::get('create',[UserController::class,'create'])->name('createUser');
+            Route::post('store',[UserController::class,'store'])->name('postAddUser');
         });
         //group products
         Route::prefix('products')->group(function(){

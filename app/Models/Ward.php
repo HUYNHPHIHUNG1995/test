@@ -13,4 +13,11 @@ class Ward extends Model
     ];
 
     protected $table='wards';
+    protected $primaryKey='code';//khai bao khoa chinh
+    public $incrementing=false;
+
+    public function district()
+    {
+        return $this->belongsTo(District::class,'district_code',code);
+    }
 }

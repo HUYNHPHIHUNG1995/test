@@ -18,4 +18,10 @@ class BaseRepository implements BaseRepositoryInterface
     public function all(){
         return $this->model->all();
     }
+
+    public function findById(int $id)
+    {
+        // TODO: Implement findById() method.
+        return $this->model->findOrFail($id);
+    }
 }

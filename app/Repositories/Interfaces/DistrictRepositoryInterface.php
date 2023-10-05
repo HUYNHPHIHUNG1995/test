@@ -8,5 +8,5 @@ namespace App\Repositories\Interfaces;
  */
 interface DistrictRepositoryInterface
 {
-    public function findByProvinceCode(int $province_code);
+    //public function findByProvinceCode(int $province_code);
 }

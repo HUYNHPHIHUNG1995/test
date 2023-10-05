@@ -61,7 +61,7 @@
                 <div class="row">
                     <div class="col-sm-6 ">
                         <label >Thành phố</label>
-                        <select class="form-control setupSelect2 province" name="province_id ">
+                        <select class="form-control setupSelect2 province location" name="province_id " data-target="districts">
                             <option value="0" class="">[Chọn thành phố]</option>
                             @if(isset($provinces))
                                 @foreach($provinces as $province)
@@ -72,7 +72,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label >Quận/Huyện</label>
-                        <select class="form-control district" name="district_id">
+                        <select class="form-control districts location" name="district_id" data-target="wards">
 
                         </select>
                     </div>
@@ -80,7 +80,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label >Phường/Xã</label>
-                        <select class="form-control" name="ward_id">
+                        <select class="form-control wards" name="ward_id">
                             <option value="0">[Chọn Phường/Xã]</option>
                         </select>
                     </div>
@@ -122,28 +122,40 @@
 
 @section('footer')
     <script>
-        province=()=>{
-            $(document).on('change','.province',function () {
+        getLocation=()=>{
+            //ca 2 select tp,quan deu dat chung ten class location
+            $(document).on('change','.location',function () {
                let _this=$(this)
-                let province_id=_this.val()
-                $.ajax({
-                    url:'ajax/location/getLocation',
-                    data:{
-                        'province_id':province_id
-                    },
-                    type:'GET',
-                    dataType:'json',
-                    success:function(res){
-                        $('.district').html(res.html)
-                    },
-                    error:function(){
-
+                //let province_id=_this.val()
+                let option =
+                    {
+                        'data':{
+                            'id':_this.val()
+                        },
+                        'target' : _this.attr('data-target')
                     }
-                });
+                sendDataTogetLocation(option)
             });
         }
+        //ham dung cho tong huong doi tuong
+        sendDataTogetLocation=(option)=>{
+            $.ajax({
+                url:'ajax/location/getLocation',
+                data:option,
+                type:'GET',
+                dataType:'json',
+                success:function(res){
+                    $('.'+option.target).html(res['res'].html)
+                },
+                error:function(jqXHR,textStatus,errorThrown){
+                    //alert(textStatus + errorThrown)
+                    $('.district').html(res['res'].html)
+                }
+            });
+        }
+
         $(document).ready(function(){
-            province();
+            getLocation();
         });
     </script>
     {{--<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
