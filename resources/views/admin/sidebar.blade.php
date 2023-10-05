@@ -98,7 +98,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('getAddProduct')}}" class="nav-link">
+                        <a href="{{route('createUser')}}" class="nav-link">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Thêm Tài khoản</p>
                         </a>

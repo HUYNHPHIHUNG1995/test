@@ -5,12 +5,18 @@ namespace App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\UserServiceInterface as UserService;
+use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
 class UserController extends Controller
 {
     protected $userService;
-    public function __construct(UserService $userService)
+    protected $provinceRepository;
+    public function __construct(
+        UserService $userService,
+        ProvinceRepository $provinceRepository
+    )
     {
         $this->userService = $userService;
+        $this->provinceRepository=$provinceRepository;
     }
 
     /**
@@ -31,7 +37,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $province=$this->provinceRepository->all();//phuong thuv all dc ke thua tu BaseRepository
+        return view('admin.users.add',[
+            'title'=>'Thêm mới thành viên',
+            'provinces'=>$province,
+        ]);
     }
 
     /**

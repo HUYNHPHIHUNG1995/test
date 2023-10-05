@@ -38,7 +38,7 @@
         </div>
         <div class="col-sm-4" >
 
-            <a class="btn btn-danger " href="" style="font-size: 13px">
+            <a class="btn btn-danger " href="{{route('createUser')}}" style="font-size: 13px">
                 <i class="fas fa-plus"></i>
                 Thêm mới thành viên
             </a>

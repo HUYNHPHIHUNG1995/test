@@ -7,6 +7,7 @@ use \App\Http\Controllers\Admin\MenuController;
 use \App\Http\Controllers\Admin\UploadController;
 use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\Users\UserController;
+use \App\Http\Controllers\Ajax\LocationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +21,8 @@ use \App\Http\Controllers\Admin\Users\UserController;
 //bat buoc dat ten login de su dung auth tu dong quay ve trang login
 Route::get('admin/users/login',[LoginController::class,'index'])->name('login');
 Route::post('admin/users/login/store',[LoginController::class,'store'])->name('postLogin');
-
+//ajax
+Route::get('ajax/location/getLocation',[LocationController::class,'getLocation'])->name('ajaxLocation');
 //admin,group auth
 Route::middleware(['auth'])->group(function(){
     //logout
@@ -44,7 +46,8 @@ Route::middleware(['auth'])->group(function(){
         //group user
         Route::prefix('user')->group(function (){
             Route::get('list',[UserController::class,'index'])->name('getListUser');
-
+            Route::get('add',[UserController::class,'create'])->name('createUser');
+            Route::post('add',[UserController::class,'store'])->name('postAddUser');
         });
         //group products
         Route::prefix('products')->group(function(){

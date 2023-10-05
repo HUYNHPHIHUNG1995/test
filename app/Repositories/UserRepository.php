@@ -3,9 +3,9 @@
 
 namespace App\Repositories;
 use App\Models\User;
-use App\Repositories\Interfaces\UserRepositoryInterfaces;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 
-class UserRepository implements UserRepositoryInterfaces
+class UserRepository implements UserRepositoryInterface
 {
     public function getAllPaginate()
     {

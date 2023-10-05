@@ -6,7 +6,7 @@ namespace App\Repositories\Interfaces;
  * Interface UserServiceInterface
  * @package App\Services\Interfaces
  */
-interface UserRepositoryInterfaces
+interface UserRepositoryInterface
 {
     public function getAllPaginate();
 }
