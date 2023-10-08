@@ -7,6 +7,8 @@ use App\Http\Requests\User\StoreUserRequest;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\UserServiceInterface as UserService;
 use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
+use Illuminate\Support\Facades\Session;
+
 class UserController extends Controller
 {
     protected $userService;
@@ -45,12 +47,15 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreUserRequest $request)
     {
-
+        if($this->userService->create($request))
+        {
+            Session::flash('success','Thêm mới thành công');
+            return redirect()->route('createUser');
+        }
+        Session::flash('error','Lỗi! Thêm mới không thành công');
+        return redirect()->route('createUser');
     }
 
     /**

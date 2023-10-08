@@ -15,6 +15,12 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model=$model;
     }
 
+    public function create($inputs=[])
+    {
+        $model=$this->model->create($inputs);
+        return $model->fresh();
+    }
+
     public function all(){
         return $this->model->all();
     }

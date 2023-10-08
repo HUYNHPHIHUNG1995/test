@@ -9,27 +9,35 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="email" class="text-danger">(*)Email</label>
-                        <input type="text" name="email" class="form-control" id="email" placeholder="Nhập email" required>
+                        <input type="text" name="email" class="form-control" id="email" value="{{old('email')}}" placeholder="Nhập email" required>
                     </div>
                     <div class="col-sm-6">
                         <label for="name" class="text-danger">(*)Họ tên</label>
-                        <input type="text" name="name" class="form-control" id="name" placeholder="Nhập họ tên" required>
+                        <input type="text" name="name" class="form-control" id="name" value="{{old('name')}}" placeholder="Nhập họ tên" required>
                     </div>
                 </div>
             </div>
+            @php
+                $userCatalogue=[
+                    '[Chọn nhóm thành viên]',
+                    'Quản trị viên',
+                    'Cộng tác viên'
+                ];
+            @endphp
             <div class="form-group">
                 <div class="row">
                     <div class="col-sm-6">
                         <label class="text-danger">(*)Chọn nhóm thành viên</label>
-                        <select class="form-control" name="role_id" required>
-                            <option value="0">Quản trị viên</option>
-                            <option value="1">Cộng tác viên</option>
-                            <option value="2">Thành viên</option>
+                        <select class="form-control user_catalogue_id" name="user_catalogue_id" required>
+                            @foreach($userCatalogue as $key=>$item)
+                            <option @if(old('user_catalogue_id')==$key)
+                                selected @endif value="{{$key}}">{{$item}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-sm-6">
                         <label for="name">Ngày sinh</label>
-                        <input type="date" name="birthday" class="form-control" id="birthday" placeholder="Nhập ngày sinh">
+                        <input type="date" name="birthday" class="form-control" id="birthday" value="{{old('birthday')}}"  placeholder="Nhập ngày sinh">
                     </div>
                 </div>
             </div>
@@ -37,11 +45,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="name">Số điện thoại</label>
-                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="Nhập số điện thoại" pattern="[0-9]{9}">
+                        <input type="tel" name="phone" value="{{old('phone')}}" class="form-control" id="phone" placeholder="Nhập số điện thoại" >
                     </div>
                     <div class="col-sm-6">
                         <label for="password" class="text-danger">(*)Mật khẩu</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="Nhập mật khẩu" required>
+                        <input type="password" name="password" value="{{old('password')}}" class="form-control" id="password" placeholder="Nhập mật khẩu" required>
                     </div>
                 </div>
             </div>
@@ -49,11 +57,11 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="name" >Ảnh đại diện</label>
-                        <input type="file" name="image" class="form-control" id="image" placeholder="Ảnh đại diện">
+                        <input type="text" name="image" value="{{old('image')}}" data-upload="Images" class="form-control input-image" id="image" placeholder="Ảnh đại diện">
                     </div>
                     <div class="col-sm-6">
                         <label for="repassword" class="text-danger">(*)Nhập lại Mật khẩu</label>
-                        <input type="password" name="repassword" class="form-control" id="repassword" placeholder="Nhập lại mật khẩu" required>
+                        <input type="password" name="repassword" value="{{old('repassword')}}" class="form-control" id="repassword" placeholder="Nhập lại mật khẩu" required>
                     </div>
                 </div>
             </div>
@@ -61,11 +69,12 @@
                 <div class="row">
                     <div class="col-sm-6 ">
                         <label >Thành phố</label>
-                        <select class="form-control setupSelect2 province location" name="province_id " data-target="districts">
+                        <select class="form-control setupSelect2 province location"  name="province_id" data-target="districts">
                             <option value="0" class="">[Chọn thành phố]</option>
                             @if(isset($provinces))
                                 @foreach($provinces as $province)
-                                <option value="{{$province->code}}" >{{$province->name}}</option>
+                                <option
+                                value="{{$province->code}}" >{{$province->name}}</option>
                                 @endforeach
                             @endif
                         </select>
@@ -86,13 +95,13 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="address">Address</label>
-                        <input type="text" name="address" class="form-control" id="address" placeholder="Nhập địa chỉ cụ thể">
+                        <input type="text" name="address" value="{{old('address')}}" class="form-control" id="address" placeholder="Nhập địa chỉ cụ thể">
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label >Mô tả</label>
-                <textarea name="description" class="form-control"></textarea>
+                <textarea name="description" value="{{old('description')}}" class="form-control"></textarea>
             </div>
             <div class="form-group">
                 <label>Kích Hoạt</label>
@@ -122,41 +131,11 @@
 
 @section('footer')
     <script>
-        getLocation=()=>{
-            //ca 2 select tp,quan deu dat chung ten class location
-            $(document).on('change','.location',function () {
-               let _this=$(this)
-                //let province_id=_this.val()
-                let option =
-                    {
-                        'data':{
-                            'id':_this.val()
-                        },
-                        'target' : _this.attr('data-target')
-                    }
-                sendDataTogetLocation(option)
-            });
-        }
-        //ham dung cho tong huong doi tuong
-        sendDataTogetLocation=(option)=>{
-            $.ajax({
-                url:'ajax/location/getLocation',
-                data:option,
-                type:'GET',
-                dataType:'json',
-                success:function(res){
-                    $('.'+option.target).html(res['res'].html)
-                },
-                error:function(jqXHR,textStatus,errorThrown){
-                    //alert(textStatus + errorThrown)
-                    $('.district').html(res['res'].html)
-                }
-            });
-        }
+        var province_id = '{{ old('province_id') }}'
+        var district_id = '{{ old('district_id') }}'
+        var ward_id = '{{ old('ward_id') }}'
 
-        $(document).ready(function(){
-            getLocation();
-        });
+
     </script>
     {{--<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
@@ -167,10 +146,10 @@
             select2();
         });
     </script>--}}
-
+    <script src="/library/location.js"></script>
+    <script src="/ckfinder/ckfinder.js"></script>
+    <script src="/library/finder.js"></script>
 @endsection
 @section('head')
    {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />--}}
-
-
 @endsection
