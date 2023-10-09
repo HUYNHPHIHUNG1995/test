@@ -30,4 +30,11 @@ class BaseRepository implements BaseRepositoryInterface
         // TODO: Implement findById() method.
         return $this->model->findOrFail($id);
     }
+
+    public function update(int $id, array $data = [])
+    {
+        // TODO: Implement update() method.
+        $user=$this->findById($id);
+        return $user->update($data);
+    }
 }

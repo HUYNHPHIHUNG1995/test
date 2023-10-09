@@ -6,6 +6,5 @@
 <!-- AdminLTE App -->
 <script src="/template/admin/dist/js/adminlte.min.js"></script>
 <script src="/template/admin/js/main.js"></script>
-<script src="/template/liblary.js"></script>
-<meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="/library/main.js"></script>
 @yield('footer')

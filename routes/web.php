@@ -23,6 +23,7 @@ Route::get('admin/users/login',[LoginController::class,'index'])->name('login');
 Route::post('admin/users/login/store',[LoginController::class,'store'])->name('postLogin');
 //ajax
 Route::get('ajax/location/getLocation',[LocationController::class,'getLocation'])->name('ajaxLocation');
+Route::delete('ajax/deleteUser',[UserController::class,'destroy']);
 //admin,group auth
 Route::middleware(['auth'])->group(function(){
     //logout
@@ -31,6 +32,17 @@ Route::middleware(['auth'])->group(function(){
     Route::prefix('admin')->group(function(){
         Route::get('/',[MainController::class,'index'])->name('admin');
         Route::get('main',[MainController::class,'index']);
+
+        //group user
+        Route::prefix('user')->group(function (){
+            Route::get('list',[UserController::class,'index'])->name('getListUser');
+            Route::get('create',[UserController::class,'create'])->name('createUser');
+            Route::post('store',[UserController::class,'store'])->name('postAddUser');
+            Route::get('edit/{id}',[UserController::class,'edit'])->where(['id'=>'[0-9]+'])->name('editUser');
+            Route::post('update/{id}',[UserController::class,'update'])->where(['id'=>'[0-9]+'])->name('postEditUser');
+            Route::post('destroy/{id}',[UserController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('postDelete');
+        });
+
         //group menu
         Route::prefix('menus')->group(function(){
             Route::get('list',[MenuController::class,'getList'])->name('listMenu');
@@ -42,12 +54,6 @@ Route::middleware(['auth'])->group(function(){
 
             Route::DELETE('destroy',[MenuController::class,'destroy']);
 
-        });
-        //group user
-        Route::prefix('user')->group(function (){
-            Route::get('list',[UserController::class,'index'])->name('getListUser');
-            Route::get('create',[UserController::class,'create'])->name('createUser');
-            Route::post('store',[UserController::class,'store'])->name('postAddUser');
         });
         //group products
         Route::prefix('products')->group(function(){
