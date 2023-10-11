@@ -23,7 +23,7 @@ Route::get('admin/users/login',[LoginController::class,'index'])->name('login');
 Route::post('admin/users/login/store',[LoginController::class,'store'])->name('postLogin');
 //ajax
 Route::get('ajax/location/getLocation',[LocationController::class,'getLocation'])->name('ajaxLocation');
-Route::delete('ajax/deleteUser',[UserController::class,'destroy']);
+Route::DELETE('ajax/deleteUser/{id}',[UserController::class,'destroy'])->name('deleteUser');
 //admin,group auth
 Route::middleware(['auth'])->group(function(){
     //logout
@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function(){
             Route::post('store',[UserController::class,'store'])->name('postAddUser');
             Route::get('edit/{id}',[UserController::class,'edit'])->where(['id'=>'[0-9]+'])->name('editUser');
             Route::post('update/{id}',[UserController::class,'update'])->where(['id'=>'[0-9]+'])->name('postEditUser');
-            Route::post('destroy/{id}',[UserController::class,'destroy'])->where(['id'=>'[0-9]+'])->name('postDelete');
+            Route::post('destroy',[UserController::class,'destroy'])->name('postDelete');
         });
 
         //group menu

@@ -25,6 +25,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('user_agent')->nullable();
             $table->text('ip')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+            $table->tinyInteger('publish')->default(0);
             $table->integer('user_catalogue_id')->default(2);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

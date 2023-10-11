@@ -19,9 +19,12 @@ class UserService implements UserServiceInterface
     {
         $this->userRepository=$userRepository;
     }
-    public function paginate()
+    public function paginate($request)
     {
-        $user=$this->userRepository->getAllPaginate();
+        $condition['keyword']=addslashes($request->input('keyword')) ;
+        $perpage=$request->integer('perpage');
+        $user=$this->userRepository->pagination(['*'],$condition,[],
+            ['path'=>'admin/user/list'],$perpage);
         return $user;
     }
 
@@ -81,5 +84,20 @@ class UserService implements UserServiceInterface
         $birthday=Carbon::createFromFormat('Y-m-d',$birthday);
         $birthdays=$birthday->format('Y-m-d H:i:s');
         return $birthdays;
+    }
+
+    public function delete($id)
+    {
+        DB::beginTransaction();
+        try {
+
+            $this->userRepository->delete($id);//userRepository extends BaseRepository
+            DB::commit();
+            return true;
+        }catch (\Exception $e){
+            DB::rollBack();
+            echo $e->getMessage();
+            return false;
+        }
     }
 }

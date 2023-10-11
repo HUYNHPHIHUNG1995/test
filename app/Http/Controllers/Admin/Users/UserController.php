@@ -30,13 +30,13 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
 
         //$list=$this->userService->paginate();
         return view('admin.users.list',[
            'title'=>'Danh sách tài khoản',
-            'listUsers'=>$this->userService->paginate()
+            'listUsers'=>$this->userService->paginate($request)
         ]);
     }
 
@@ -102,8 +102,15 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id = 0)
+    public function destroy(Request $request)
     {
-        return $id;
+        $id=$request->input('user_id');
+        if($this->userService->delete($id))
+        {
+            Session::flash('success','Xóa thành công');
+            return redirect()->route('getListUser');
+        }
+        Session::flash('error','Lỗi! Xóa không thành công');
+        return redirect()->route('getListUser');
     }
 }

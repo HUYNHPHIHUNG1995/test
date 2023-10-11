@@ -14,9 +14,4 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
        $this->model=$model;
     }
 
-    public function getAllPaginate()
-    {
-        // TODO: Implement getAllPaginate() method.
-        return User::orderByDesc('id')->paginate(20);
-    }
 }

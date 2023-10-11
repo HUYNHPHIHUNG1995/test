@@ -34,17 +34,18 @@
                         {{$listUser->adress}}
                     </td>
                     <td class="text-center">
-                        <input type="checkbox" class="js-switch" checked />
+                        <input type="checkbox" class="js-switch" value="{{$listUser->publish}}"
+                              {{($listUser->publish==1) ? 'checked' : ''}} />
 
                     </td>
                     <td class="text-center">
-                        <a class="btn btn-primary btn-sm edit" href="{{route('editUser',$listUser->id)}}">Sửa
+                        <a class="btn btn-primary btn-sm edit " href="{{route('editUser',$listUser->id)}}">Sửa
                             <i class="fas fa-edit"></i>
                         </a>
-                        <button type="button" class="btn btn-danger"
-                                onclick="loadDeleteModal({{ $listUser->id }}, '{{ $listUser->email }}')">Xóa
+                        <button type="button" class="btn btn-danger deleteUser" value="{{$listUser->id}}"
+                                data-target="">Xóa
                         </button>
-
+                        {{--onclick="loadDeleteModal({{ $listUser->id }}, '{{ $listUser->email }}','/ajax/deleteUser')"--}}
                     </td>
                 </tr>
                 @endforeach
@@ -53,13 +54,11 @@
         </table>
         {{$listUsers->links('pagination::bootstrap-4')}}
     </div>
-    <form action="" method="POST">
-        @csrf
-        @method('delete')
     <div class="modal fade" id="deleteCategory" data-backdrop="static" tabindex="-1" role="dialog"
          aria-labelledby="deleteCategory" aria-hidden="true">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content">
+                <form action="{{route('postDelete')}}" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title">This action is not reversible.</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -68,47 +67,32 @@
                 </div>
                 <div class="modal-body">
                     Bạn chắc chắn muốn xóa: <span id="modal-category_name"></span>?
-                    <input type="hidden" id="category" name="category_id">
+                    <input type="hidden" id="user_id" name="user_id">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn bg-white" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" id="modal-confirm_delete">Delete</button>
+                    <button type="submit" class="btn btn-danger" id="modal-confirm_delete">Delete</button>
                 </div>
+                    @csrf
+                </form>
             </div>
         </div>
     </div>
-    </form>
 @endsection
 
-mở cho anh cái cửa sổ lệnh để anh gõ lệnh
 @section('footer')
     <script>
-        //onclick button xoa
-        function loadDeleteModal(id, name) {
-            $('#modal-category_name').html(name);
-
-            $('#deleteCategory').modal('show');
-
-            $('#modal-confirm_delete').on('click',function () {
-                $.ajax({
-                    url: 'ajax/deleteUser',
-                    type: 'POST',
-                    datatype: 'JSON',
-                    data: { id },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function (data) {
-                        // Success logic goes here..!
-                        $('#deleteCategory').modal('hide');
-                    },
-                    error: function (error) {
-                        // Error logic goes here..!
-                    }
-                });
+        $(document).ready(function () {
+            $('.deleteUser').click(function (e) {
+                e.preventDefault();
+                var id = $(this).val();
+                $('#modal-category_name').html(id);
+                $('#user_id').val(id);
+                $('#deleteCategory').modal('show');
             })
+        });
 
-        }
+
 
         //
         var HT={};

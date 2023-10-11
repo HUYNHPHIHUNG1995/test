@@ -25,6 +25,27 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->all();
     }
 
+    public function pagination(
+        array $column = ['*'],
+        array $condition = [],
+        array $join = [],
+        array $extend=[],
+        int $perpage=1
+    ){
+        // TODO: Implement pagination() method.
+        $query=$this->model->select($column)
+                    ->where(function ($query) use ($condition){
+                        if(isset($condition['keyword']) && !empty($condition['keyword'])){
+                            $query->where('name','LIKE','%'.$condition['keyword'].'%');
+                        }
+                    });
+        if(!empty($join)){
+            $query->join(...$join);
+        }
+        return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL').$extend['path']);
+
+    }
+
     public function findById(int $id)
     {
         // TODO: Implement findById() method.
@@ -34,7 +55,21 @@ class BaseRepository implements BaseRepositoryInterface
     public function update(int $id, array $data = [])
     {
         // TODO: Implement update() method.
-        $user=$this->findById($id);
-        return $user->update($data);
+        $model=$this->findById($id);
+        return $model->update($data);
+    }
+    //xoa mem
+    public function delete(int $id =0)
+    {
+        // TODO: Implement delete() method.
+        $model=$this->findById($id);
+        return $model->delete();
+    }
+    //xoa cung
+    public function forceDelete($id = 0)
+    {
+        // TODO: Implement forceDelete() method.
+        $model=$this->findById($id);
+        return $model->forceDelete();
     }
 }
