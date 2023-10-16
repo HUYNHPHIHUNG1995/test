@@ -58,6 +58,11 @@ class BaseRepository implements BaseRepositoryInterface
         $model=$this->findById($id);
         return $model->update($data);
     }
+
+    public function updateByWhereIn(string $whereInField='', array $whereIn=[],array $payload=[])
+    {
+        return $this->model->whereIn($whereInField,$whereIn)->update($payload);
+    }
     //xoa mem
     public function delete(int $id =0)
     {

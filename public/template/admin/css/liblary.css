@@ -23,3 +23,13 @@ table strong{
 table>tbody>tr>td .edit{
     margin-right: 5px;
 }
+
+.active-bg{
+    background: rgb(243, 243, 139) !important;
+}
+.checkBoxItem{
+    width: 15px;
+    height: 15px;
+}
+
+

@@ -14,6 +14,7 @@ interface BaseRepositoryInterface
                                int $perpage=20);
     public function findById(int $id);
     public function update(int $id,array $data=[]);
+    public function updateByWhereIn(string $whereInField='', array $whereIn=[], array $payload=[]);
     public function delete(int $id = 0);
     public function forceDelete($id = 0);
 }

@@ -43,6 +43,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+       
         @include('admin.alert')
         <div class="row">
           <!-- left column -->

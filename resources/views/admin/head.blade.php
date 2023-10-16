@@ -9,8 +9,9 @@
 <link rel="stylesheet" href="/template/admin/plugins/fontawesome-free/css/all.min.css">
 <!-- icheck bootstrap -->
 <link rel="stylesheet" href="/template/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+
 <!-- Theme style -->
 <link rel="stylesheet" href="/template/admin/dist/css/adminlte.min.css">
-<link rel="stylesheet" href="/template/liblary.css">
+<link rel="stylesheet" href="/template/admin/css/liblary.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @yield('head')

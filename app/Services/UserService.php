@@ -21,11 +21,44 @@ class UserService implements UserServiceInterface
     }
     public function paginate($request)
     {
-        $condition['keyword']=addslashes($request->input('keyword')) ;
+        $condition['keyword']=addslashes($request->input('keyword'));
+        $condition['publish']=$request->input('publish');
+        
+        $condition['user_catalogue_id']=$request->input('user_catalogue_id');
         $perpage=$request->integer('perpage');
         $user=$this->userRepository->pagination(['*'],$condition,[],
-            ['path'=>'admin/user/list'],$perpage);
+            ['path'=>'/admin/user/list'],$perpage);
         return $user;
+    }
+
+    public function updateStatus($data = [])
+    {
+        
+        DB::beginTransaction();
+        try {
+            $payload[$data['field']]=(($data['value']==1)?0:1);
+            $this->userRepository->update($data['modelId'],$payload);
+            DB::commit();
+            return true;
+        }catch (\Exception $e){
+            DB::rollBack();
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function updateAllStatus($data=[]){
+        DB::beginTransaction();
+        try {
+            $payload[$data['field']]=$data['value'];
+            $flag = $this->userRepository->updateByWhereIn('id',$data['id'],$payload);
+            DB::commit();
+            return true;
+        }catch (\Exception $e){
+            DB::rollBack();
+            echo $e->getMessage();
+            return false;
+        }
     }
 
     public function create($request)

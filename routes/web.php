@@ -7,6 +7,7 @@ use \App\Http\Controllers\Admin\MenuController;
 use \App\Http\Controllers\Admin\UploadController;
 use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\Users\UserController;
+use App\Http\Controllers\Ajax\DashboardController;
 use \App\Http\Controllers\Ajax\LocationController;
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,8 @@ Route::get('admin/users/login',[LoginController::class,'index'])->name('login');
 Route::post('admin/users/login/store',[LoginController::class,'store'])->name('postLogin');
 //ajax
 Route::get('ajax/location/getLocation',[LocationController::class,'getLocation'])->name('ajaxLocation');
-Route::DELETE('ajax/deleteUser/{id}',[UserController::class,'destroy'])->name('deleteUser');
+Route::post('ajax/dashboard/changeStatus',[DashboardController::class,'changeStatus'])->name('changeStatus');
+Route::post('ajax/dashboard/changeAllStatus',[DashboardController::class,'changeAllStatus'])->name('changeAllStatus');
 //admin,group auth
 Route::middleware(['auth'])->group(function(){
     //logout

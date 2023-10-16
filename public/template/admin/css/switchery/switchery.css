@@ -25,8 +25,18 @@
     background: #fff;
     border-radius: 100%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-    height: 30px;
+    height: 15px;
     position: absolute;
     top: 0;
-    width: 30px;
+    width: 15px;
+}
+.switchery-small {
+    border-radius: 20px;
+    height: 20px;
+    width: 33px
+}
+
+.switchery-small>small {
+    height: 20px;
+    width: 20px
 }

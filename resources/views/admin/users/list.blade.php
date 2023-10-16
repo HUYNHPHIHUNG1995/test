@@ -1,7 +1,10 @@
 @extends('admin.main')
 @section('content')
-    <div class="card-body table-responsive p-0">
+        @include('admin.toolbox')
         @include('admin.users.search')
+        
+        
+       
         <table class="table table-hover text-nowrap">
             <thead>
             <tr>
@@ -19,7 +22,7 @@
                 @foreach($listUsers as $listUser)
                 <tr>
                     <td>
-                        <input type="checkbox" value="" class="input-checkbox checkboxItem">
+                        <input type="checkbox" value="{{ $listUser->id }}"  class="input-checkbox checkboxItem">
                     </td>
                     <td>
                         {{$listUser->name}}
@@ -33,8 +36,8 @@
                     <td>
                         {{$listUser->adress}}
                     </td>
-                    <td class="text-center">
-                        <input type="checkbox" class="js-switch" value="{{$listUser->publish}}"
+                    <td class="text-center js-switch-{{ $listUser->id }}">
+                        <input type="checkbox" class="js-switch status" data-field="publish" data-modelId="{{ $listUser->id }}" data-model="User" value="{{$listUser->publish}}"
                               {{($listUser->publish==1) ? 'checked' : ''}} />
 
                     </td>
@@ -42,12 +45,14 @@
                         <a class="btn btn-primary btn-sm edit " href="{{route('editUser',$listUser->id)}}">Sửa
                             <i class="fas fa-edit"></i>
                         </a>
-                        <button type="button" class="btn btn-danger deleteUser" value="{{$listUser->id}}"
+                        <button type="button" class="btn btn-danger btn-sm deleteUser" value="{{$listUser->id}}"
                                 data-target="">Xóa
+                                <i class="fas fa-trash"></i>
                         </button>
                         {{--onclick="loadDeleteModal({{ $listUser->id }}, '{{ $listUser->email }}','/ajax/deleteUser')"--}}
                     </td>
                 </tr>
+                <input hidden class="emailvalue{{ $listUser->id }}" value="{{ $listUser->email }}">
                 @endforeach
             @endif
             </tbody>
@@ -60,13 +65,13 @@
             <div class="modal-content">
                 <form action="{{route('postDelete')}}" method="POST">
                 <div class="modal-header">
-                    <h5 class="modal-title">This action is not reversible.</h5>
+                    <h5 class="modal-title">Hành động này sẽ không thể khôi phục lại</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    Bạn chắc chắn muốn xóa: <span id="modal-category_name"></span>?
+                    Bạn chắc chắn muốn xóa mục đã chọn <span id="modal-category_name" style="bold"></span>?
                     <input type="hidden" id="user_id" name="user_id">
                 </div>
                 <div class="modal-footer">
@@ -78,35 +83,12 @@
             </div>
         </div>
     </div>
+    @include('modelAlert')
+    @include('modalDelete')
 @endsection
 
 @section('footer')
-    <script>
-        $(document).ready(function () {
-            $('.deleteUser').click(function (e) {
-                e.preventDefault();
-                var id = $(this).val();
-                $('#modal-category_name').html(id);
-                $('#user_id').val(id);
-                $('#deleteCategory').modal('show');
-            })
-        });
-
-
-
-        //
-        var HT={};
-        switchery=()=>{
-            $('.js-switch').each(function(){
-                var switchery = new Switchery(this, { color: '#1AB394' });
-            });
-        }
-        $(document).ready(function(){
-
-            switchery();
-
-        });
-    </script>
+<script src="/template/admin/js/library.js"></script>
 
     <script src="/template/admin/js/switchery/switchery.js"></script>
 @endsection
