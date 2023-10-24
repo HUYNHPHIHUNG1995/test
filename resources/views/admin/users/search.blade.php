@@ -40,8 +40,8 @@
             </div>
             @php
                 $publishArray=[
-                    'Publish',
-                    'UnPublish'
+                    'UnPublish',
+                    'Publish'
                 ];
                 $publish=request('publish') ?: old('publish')
 
@@ -55,7 +55,7 @@
                         >
                         <option selected="selected" data-select2-id="3" value="-1">[Tất cả]</option>
                         @foreach($publishArray as $key=>$item)
-                            <option {{ ($publish==$key) ? 'selected' : '' }} value="{{$key}}">{{$item}}</option>
+                            <option {{ (request('publish')!='' && $publish==$key) ? 'selected' : '' }} value="{{$key}}">{{$item}}</option>
                         @endforeach
                 </select>
                 </div>

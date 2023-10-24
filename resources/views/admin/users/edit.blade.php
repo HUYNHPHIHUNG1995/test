@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-sm-6">
                         <label for="name" >Ảnh đại diện</label>
-                        <input type="text" name="image" value="{{$userById->image}}" data-upload="Images" class="form-control input-image" id="image" placeholder="Ảnh đại diện">
+                        <input type="text" name="image" value="{{$userById->image}}" data-type="Images" class="form-control upload-image" id="image" placeholder="Ảnh đại diện">
                     </div>
                 </div>
             </div>
@@ -91,19 +91,6 @@
                 <label >Mô tả</label>
                 <textarea name="description" value="{{$userById->description}}" class="form-control"></textarea>
             </div>
-            <div class="form-group">
-                <label>Kích Hoạt</label>
-                <div class="row">
-                    <div class="custom-control custom-radio" style="margin-right: 10px">
-                        <input class="custom-control-input" value="1" type="radio" id="active" name="active" checked="">
-                        <label for="active" class="custom-control-label">Có</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input class="custom-control-input" value="0" type="radio" id="no_active" name="active" >
-                        <label for="no_active" class="custom-control-label">Không</label>
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- /.card-body -->
 
@@ -134,9 +121,9 @@
             select2();
         });
     </script>--}}
-    <script src="/library/location.js"></script>
-    <script src="/ckfinder/ckfinder.js"></script>
-    <script src="/library/finder.js"></script>
+    <script src="{{ asset('/library/location.js') }}"></script>
+    <script src="{{ asset('/template/admin/ckfinder_2/ckfinder.js') }}"></script>
+    <script src="{{ asset('/library/finder.js') }}"></script>
 @endsection
 @section('head')
     {{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />--}}

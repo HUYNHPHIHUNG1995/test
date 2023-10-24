@@ -19,7 +19,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         array $condition = [],
         array $join = [],
         array $extend=[],
-        int $perpage=1
+        int $perpage=1,
+        array $relations =[]
     ){
         // TODO: Implement pagination() method.
         $query=$this->model->select($column)
@@ -34,8 +35,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                         {
                             $query->where('publish',$condition['publish']);
                         }
-                    });
-
+                    })->with('user_catalogues');
 
         if(!empty($join)){
             $query->join(...$join);

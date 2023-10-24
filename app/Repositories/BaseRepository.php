@@ -18,6 +18,7 @@ class BaseRepository implements BaseRepositoryInterface
     public function create($inputs=[])
     {
         $model=$this->model->create($inputs);
+        //dd($inputs);die();
         return $model->fresh();
     }
 
@@ -30,7 +31,8 @@ class BaseRepository implements BaseRepositoryInterface
         array $condition = [],
         array $join = [],
         array $extend=[],
-        int $perpage=1
+        int $perpage=1,
+        array $relations =[]
     ){
         // TODO: Implement pagination() method.
         $query=$this->model->select($column)
@@ -38,7 +40,18 @@ class BaseRepository implements BaseRepositoryInterface
                         if(isset($condition['keyword']) && !empty($condition['keyword'])){
                             $query->where('name','LIKE','%'.$condition['keyword'].'%');
                         }
+                        if(isset($condition['publish']) && $condition['publish'] != -1 )
+                        {
+                            $query->where('publish',$condition['publish']);
+                        }
                     });
+                    //count
+        if(isset($relations) && !empty($relations)){
+            foreach($relations as $relation)
+            {
+                $query->withCount($relation);
+            }
+        }
         if(!empty($join)){
             $query->join(...$join);
         }

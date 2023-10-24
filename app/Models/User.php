@@ -36,7 +36,10 @@ class User extends Authenticatable
         'user_catalogue_id',
         'publish'
     ];
-
+    public function user_catalogues()
+    {
+        return $this->belongsTo(Catalogue::class,'user_catalogue_id','id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

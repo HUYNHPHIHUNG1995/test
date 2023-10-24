@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body">
                     Bạn chắc chắn muốn xóa mục đã chọn <span id="modal-category_name" style="bold"></span>?
-                    <input type="hidden" id="user_id" name="user_id">
+                    <input type="hidden" id="getId" name="getId">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn bg-white" data-dismiss="modal">Close</button>

@@ -106,15 +106,14 @@
     }
     
     deletedUser=()=>{
-        $('.deleteUser').click(function (e) {
+        $('.deleterow').click(function (e) { 
             e.preventDefault();
             var id = $(this).val();
-            //get email by emailclass
-            var classemailvalue='.emailvalue'+id
-            var email=$(classemailvalue).val();
-            $('#modal-category_name').html(email);
-
-            $('#user_id').val(id);
+            //get email by class
+            var classvalue='.value'+id;
+            var colunm=$(classvalue).val();
+            $('#modal-category_name').html(colunm);
+            $('#getId').val(id);
             $('#deleteCategory').modal('show');
         })
     }

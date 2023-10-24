@@ -26,8 +26,8 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->text('ip')->nullable();
             $table->timestamp('deleted_at')->nullable();
-            $table->tinyInteger('publish')->default(0);
-            $table->integer('user_catalogue_id')->default(2);
+            $table->tinyInteger('publish')->default(0);      
+            $table->unsignedBigInteger('user_catalogue_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

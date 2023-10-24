@@ -36,6 +36,7 @@ class UserController extends Controller
         //$list=$this->userService->paginate();
         return view('admin.users.list',[
            'title'=>'Danh sách tài khoản',
+           'model'=>'User',
             'listUsers'=>$this->userService->paginate($request)
         ]);
     }
@@ -104,7 +105,7 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        $id=$request->input('user_id');
+        $id=$request->input('getId');
         if($this->userService->delete($id))
         {
             Session::flash('success','Xóa thành công');

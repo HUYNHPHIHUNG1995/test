@@ -27,7 +27,7 @@ class UserService implements UserServiceInterface
         $condition['user_catalogue_id']=$request->input('user_catalogue_id');
         $perpage=$request->integer('perpage');
         $user=$this->userRepository->pagination(['*'],$condition,[],
-            ['path'=>'/admin/user/list'],$perpage);
+            ['path'=>'/admin/user/list'],$perpage,[]);
         return $user;
     }
 
@@ -67,13 +67,13 @@ class UserService implements UserServiceInterface
         //dd($inputs['birthday']);die();
         DB::beginTransaction();
         try {
-            $inputs=$request->except(['_token','send','repassword','active']);
+            $inputs=$request->except(['_token','send','repassword']);
             //dd($inputs['birthday']);die();
             if($inputs['birthday'] != '')
             {
                 $inputs['birthday']=$this->convertBirthday($inputs['birthday']);
             }else{
-                $inputs=$request->except(['_token','send','repassword','active','birthday']);
+                $inputs=$request->except(['_token','send','repassword','birthday']);
             }
 
 
@@ -94,12 +94,12 @@ class UserService implements UserServiceInterface
 
         DB::beginTransaction();
         try {
-            $inputs=$request->except(['_token','send','active']);
+            $inputs=$request->except(['_token','send']);
             if($inputs['birthday'] != '')
             {
                 $inputs['birthday']=$this->convertBirthday($inputs['birthday']);
             }else{
-                $inputs=$request->except(['_token','send','active','birthday']);
+                $inputs=$request->except(['_token','send','birthday']);
             }
             $this->userRepository->update($id,$inputs);//userRepository extends BaseRepository
             DB::commit();

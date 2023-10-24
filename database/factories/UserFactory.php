@@ -19,6 +19,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'user_catalogue_id' => rand(1, 2),
             'phone'=>fake()->phoneNumber,
             'address'=>fake()->address,
             'email' => fake()->unique()->safeEmail(),

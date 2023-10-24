@@ -11,7 +11,8 @@ interface BaseRepositoryInterface
                                array $condition = [],
                                array $join = [],
                                array $extend=[],
-                               int $perpage=20);
+                               int $perpage=20,
+                               array $relations =[]);
     public function findById(int $id);
     public function update(int $id,array $data=[]);
     public function updateByWhereIn(string $whereInField='', array $whereIn=[], array $payload=[]);

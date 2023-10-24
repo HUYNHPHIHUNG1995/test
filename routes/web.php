@@ -7,8 +7,10 @@ use \App\Http\Controllers\Admin\MenuController;
 use \App\Http\Controllers\Admin\UploadController;
 use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\Users\UserController;
+use \App\Http\Controllers\Admin\Users\UserCatalogueController;
 use App\Http\Controllers\Ajax\DashboardController;
 use \App\Http\Controllers\Ajax\LocationController;
+use \App\Http\Controllers\Admin\LanguageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,9 +44,36 @@ Route::middleware(['auth'])->group(function(){
             Route::post('store',[UserController::class,'store'])->name('postAddUser');
             Route::get('edit/{id}',[UserController::class,'edit'])->where(['id'=>'[0-9]+'])->name('editUser');
             Route::post('update/{id}',[UserController::class,'update'])->where(['id'=>'[0-9]+'])->name('postEditUser');
-            Route::post('destroy',[UserController::class,'destroy'])->name('postDelete');
+            Route::post('destroy',[UserController::class,'destroy'])->name('postDeleteUser');
+
+            Route::prefix('catalogue')->group(function (){
+                Route::get('list',[UserCatalogueController::class,'index'])->name('getListCatalogueUser');
+                Route::get('create',[UserCatalogueController::class,'create'])->name('createCatalogueUser');
+                Route::post('store',[UserCatalogueController::class,'store'])->name('postAddCatalogueUser');
+                Route::get('edit/{id}',[UserCatalogueController::class,'edit'])->where(['id'=>'[0-9]+'])->name('editCatalogueUser');
+                Route::post('update/{id}',[UserCatalogueController::class,'update'])->where(['id'=>'[0-9]+'])->name('postEditCatalogueUser');
+                Route::post('destroy',[UserCatalogueController::class,'destroy'])->name('postDeleteCatalogue');
+            });
+        });
+        //post route
+        Route::prefix('post')->group(function (){
+            Route::get('list',[UserController::class,'index'])->name('getListPost');
+            Route::get('create',[UserController::class,'create'])->name('createPost');
+            Route::post('store',[UserController::class,'store'])->name('postAddUser');
+            Route::get('edit/{id}',[UserController::class,'edit'])->where(['id'=>'[0-9]+'])->name('editPost');
+            Route::post('update/{id}',[UserController::class,'update'])->where(['id'=>'[0-9]+'])->name('postEditPost');
+            Route::post('destroy',[UserController::class,'destroy'])->name('postDeletePost');
         });
 
+        //language route
+        Route::prefix('language')->group(function (){
+            Route::get('list',[LanguageController::class,'index'])->name('getListLanguage');
+            Route::get('create',[LanguageController::class,'create'])->name('createLanguage');
+            Route::post('store',[LanguageController::class,'store'])->name('postAddLanguage');
+            Route::get('edit/{id}',[LanguageController::class,'edit'])->where(['id'=>'[0-9]+'])->name('editLanguage');
+            Route::post('update/{id}',[LanguageController::class,'update'])->where(['id'=>'[0-9]+'])->name('postEditLanguage');
+            Route::post('destroy',[LanguageController::class,'destroy'])->name('postDeleteLanguage');
+        });
         //group menu
         Route::prefix('menus')->group(function(){
             Route::get('list',[MenuController::class,'getList'])->name('listMenu');
