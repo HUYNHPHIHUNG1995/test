@@ -31,8 +31,12 @@ class DashboardController extends Controller
         if(class_exists($serviceInterfaceNamespace)){
             $serviceInstance = app($serviceInterfaceNamespace);
         }
+        
         if($serviceInstance->updateAllStatus($data)){
-            return response()->json(['success'=>true]);
+            return response()->json([
+                'success'=>true,
+                'flag'=>'true'
+            ]);
         }
     }
 }

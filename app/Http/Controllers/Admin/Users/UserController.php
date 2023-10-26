@@ -34,10 +34,10 @@ class UserController extends Controller
     {
 
         //$list=$this->userService->paginate();
-        return view('admin.users.list',[
+        return view('admin.user.user.index',[
            'title'=>'Danh sách tài khoản',
            'model'=>'User',
-            'listUsers'=>$this->userService->paginate($request)
+            'users'=>$this->userService->paginate($request)
         ]);
     }
 
@@ -47,7 +47,7 @@ class UserController extends Controller
     public function create()
     {
         $province=$this->provinceRepository->all();//phuong thuv all dc ke thua tu BaseRepository
-        return view('admin.users.add',[
+        return view('admin.user.user.store',[
             'title'=>'Thêm mới thành viên',
             'provinces'=>$province,
         ]);
@@ -79,7 +79,7 @@ class UserController extends Controller
     {
         $province=$this->provinceRepository->all();
         $userById=$this->userRepository->findById($id);
-        return view('admin.users.edit',[
+        return view('admin.user.user.update',[
             'title'=>'Sửa thành viên',
             'userById'=>$userById,
             'provinces'=>$province,

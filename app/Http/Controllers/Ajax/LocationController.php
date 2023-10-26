@@ -27,6 +27,7 @@ class LocationController extends Controller
     {
         $get=$request->input();
         $html='';
+        //dd($get);die();
         //$province_code=(int) $request->input('province_id');
         if($get['data']['id']!=0)
         {

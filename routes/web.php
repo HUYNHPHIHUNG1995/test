@@ -11,6 +11,7 @@ use \App\Http\Controllers\Admin\Users\UserCatalogueController;
 use App\Http\Controllers\Ajax\DashboardController;
 use \App\Http\Controllers\Ajax\LocationController;
 use \App\Http\Controllers\Admin\LanguageController;
+use \App\Http\Controllers\Admin\PostCatalogueController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,7 +64,17 @@ Route::middleware(['auth'])->group(function(){
             Route::get('edit/{id}',[UserController::class,'edit'])->where(['id'=>'[0-9]+'])->name('editPost');
             Route::post('update/{id}',[UserController::class,'update'])->where(['id'=>'[0-9]+'])->name('postEditPost');
             Route::post('destroy',[UserController::class,'destroy'])->name('postDeletePost');
+
+            Route::prefix('catalogue')->group(function (){
+                Route::get('list',[PostCatalogueController::class,'index'])->name('getListPostCatalogue');
+                Route::get('create',[PostCatalogueController::class,'create'])->name('createPostCatalogue');
+                Route::post('store',[PostCatalogueController::class,'store'])->name('postAddPostCatalogue');
+                Route::get('edit/{id}',[PostCatalogueController::class,'edit'])->where(['id'=>'[0-9]+'])->name('editPostCatalogue');
+                Route::post('update/{id}',[PostCatalogueController::class,'update'])->where(['id'=>'[0-9]+'])->name('postEditPostCatalogue');
+                Route::post('destroy',[PostCatalogueController::class,'destroy'])->name('postDeletePostCatalogue');
+            });
         });
+        
 
         //language route
         Route::prefix('language')->group(function (){

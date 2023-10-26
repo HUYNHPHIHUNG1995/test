@@ -8,11 +8,11 @@
                 'name'=>['user'],
                 'subModule' =>[
                     [
-                        'title' => 'Quản lý Thành viên',
+                        'title' => 'QL Thành viên',
                         'route' => 'admin/user/list'
                     ],
                     [
-                        'title' => 'Quản lý Nhóm thành viên',
+                        'title' => 'QL Nhóm thành viên',
                         'route' => 'admin/user/catalogue/list'
                     ]
                 ]
@@ -23,22 +23,22 @@
                 'name'=>['post'],
                 'subModule' =>[
                     [
-                        'title' => 'Quản lý Bài viết',
+                        'title' => 'QL Bài viết',
                         'route' => 'admin/post/list'
                     ],
                     [
-                        'title' => 'Quản lý Nhóm bài viết',
+                        'title' => 'QL Nhóm bài viết',
                         'route' => 'admin/post/catalogue/list'
                     ]
                 ]
             ],
             [
                 'title'=>'Cấu hình chung',
-                'icon' => 'fa fa-file',
+                'icon' => 'fa fa-language',
                 'name'=>['language'],
                 'subModule' =>[
                     [
-                        'title' => 'Quản lý Ngôn ngữ',
+                        'title' => 'QL Ngôn ngữ',
                         'route' => 'admin/language/list'
                     ]
                 ]

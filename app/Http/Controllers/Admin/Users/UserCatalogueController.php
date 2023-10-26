@@ -30,10 +30,10 @@ class UserCatalogueController extends Controller
     {
 
         //$list=$this->userService->paginate();
-        return view('admin.users.catalogue.list',[
-           'title'=>'Danh sách tài khoản',
+        return view('admin.user.catalogue.index',[
+           'title'=>'Danh sách nhóm thành viên',
            'model'=>'UserCatalogue',
-            'listCatalogueUsers'=>$this->userCatalogueService->paginate($request)
+            'userCatalogues'=>$this->userCatalogueService->paginate($request)
         ]);
     }
 
@@ -42,7 +42,7 @@ class UserCatalogueController extends Controller
      */
     public function create()
     {
-        return view('admin.users.catalogue.add',[
+        return view('admin.user.catalogue.store',[
             'title'=>'Thêm mới nhóm'
         ]);
     }
@@ -72,9 +72,9 @@ class UserCatalogueController extends Controller
     public function edit(string $id)
     {
         $userCatalogueById=$this->userCatalogueRepository->findById($id);
-        return view('admin.users.catalogue.edit',[
+        return view('admin.user.catalogue.update',[
             'title'=>'Sửa thành viên',
-            'userCatalogueById'=>$userCatalogueById
+            'userCatalogue'=>$userCatalogueById
         ]);
     }
 

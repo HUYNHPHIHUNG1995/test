@@ -30,10 +30,10 @@ class LanguageController extends Controller
     {
 
         //$list=$this->userService->paginate();
-        return view('admin.language.list',[
+        return view('admin.language.index',[
            'title'=>'Danh sách ngôn ngữ',
            'model'=>'Language',
-            'listLanguages'=>$this->languageService->paginate($request)
+            'languages'=>$this->languageService->paginate($request)
         ]);
     }
 
@@ -42,7 +42,7 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        return view('admin.language.add',[
+        return view('admin.language.store',[
             'title'=>'Thêm mới ngôn ngữ'
         ]);
     }
@@ -72,9 +72,9 @@ class LanguageController extends Controller
     public function edit(string $id)
     {
         $languageById=$this->languageRepository->findById($id);
-        return view('admin.language.edit',[
+        return view('admin.language.update',[
             'title'=>'Sửa thành viên',
-            'languageById'=>$languageById
+            'language'=>$languageById
         ]);
     }
 
