@@ -20,7 +20,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         array $join = [],
         array $extend=[],
         int $perpage=1,
-        array $relations =[]
+        array $relations =[],
+        array $orderBy =[]
     ){
         // TODO: Implement pagination() method.
         $query=$this->model->select($column)

@@ -32,7 +32,8 @@ class BaseRepository implements BaseRepositoryInterface
         array $join = [],
         array $extend=[],
         int $perpage=1,
-        array $relations =[]
+        array $relations =[],
+        array $orderBy =['id','DESC']
     ){
         // TODO: Implement pagination() method.
         $query=$this->model->select($column)
@@ -44,6 +45,12 @@ class BaseRepository implements BaseRepositoryInterface
                         {
                             $query->where('publish',$condition['publish']);
                         }
+                        if(isset($condition['where']) && count($condition['where'])){
+                            foreach($condition['where'] as $key=>$val)
+                            {
+                                $query->where($val[0],$val[1],$val[2]);
+                            }
+                        }
                     });
                     //count
         if(isset($relations) && !empty($relations)){
@@ -52,14 +59,24 @@ class BaseRepository implements BaseRepositoryInterface
                 $query->withCount($relation);
             }
         }
-        if(!empty($join)){
-            $query->join(...$join);
+        if(isset($join) && is_array($join) && count($join)){
+            foreach($join as $key=>$val)
+            {
+                $query->join($val[0],$val[1],$val[2],$val[3]);
+            }
+        }
+        if(isset($orderBy) && is_array($orderBy) && count($orderBy)){
+            $query->orderBy($orderBy[0],$orderBy[1]);
         }
         return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL').$extend['path']);
 
     }
 
-    public function findById(int $id)
+    public function findById(
+        int $id,
+        array $column=['*'],
+        array $relation=[]
+    )
     {
         // TODO: Implement findById() method.
         return $this->model->findOrFail($id);
@@ -89,5 +106,11 @@ class BaseRepository implements BaseRepositoryInterface
         // TODO: Implement forceDelete() method.
         $model=$this->findById($id);
         return $model->forceDelete();
+    }
+
+    public function createLanguagePivot($model,array $payload=[])
+    {
+        //languages la phuong thuc duoc khai bao trong model Language
+        return $model->languages()->attach($model->id,$payload);
     }
 }

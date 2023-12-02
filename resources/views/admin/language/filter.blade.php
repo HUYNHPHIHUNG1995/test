@@ -20,7 +20,7 @@
                     @endphp
                     <select name="publish" class="form-control setupSelect2 ml10">
                         @foreach(config('apps.general.publish') as $key => $val)
-                        <option {{ ($publish == $key)  ? 'selected' : '' }} value="{{ $key }}">{{ $val }}</option>
+                        <option {{ ($publish == $key && $publish !=null)  ? 'selected' : '' }} value="{{ $key }}">{{ $val }}</option>
                         @endforeach
                     </select>
                     <div class="uk-search uk-flex uk-flex-middle mr10">

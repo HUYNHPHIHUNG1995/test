@@ -27,7 +27,7 @@ class UserService implements UserServiceInterface
         $condition['user_catalogue_id']=$request->input('user_catalogue_id');
         $perpage=$request->integer('perpage');
         $user=$this->userRepository->pagination(['*'],$condition,[],
-            ['path'=>'/admin/user/list'],$perpage,[]);
+            ['path'=>'/admin/user/list'],$perpage,[],[]);
         return $user;
     }
 

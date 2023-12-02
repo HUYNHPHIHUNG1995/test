@@ -19,7 +19,6 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->count(50)->create();
         DB::table('users')->insert([
             'user_catalogue_id' => rand(1, 2),
             'email' => 'admin@gmail.com',
@@ -36,6 +35,7 @@ class UserSeeder extends Seeder
             'created_at'=> Carbon::now(),
             'updated_at'=>Carbon::now(),
         ]);
-
+        User::factory()->count(50)->create();
+        
     }
 }

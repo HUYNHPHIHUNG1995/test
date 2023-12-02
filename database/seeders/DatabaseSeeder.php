@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Language;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CatalogueSeeder::class,
             UserSeeder::class,
+            LanguagesSeeder::class,
             MenuSeeder::class,
             ProductSeeder::class
         ]);

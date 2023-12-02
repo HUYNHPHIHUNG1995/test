@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreLanguagesRequest;
-use App\Http\Requests\UpdateLanguagesRequest;
+use App\Http\Requests\StorePostCatalogueRequest;
+use App\Http\Requests\UpdatePostCatalogueRequest;
+use App\Classes\Nestedsetbie;
 use Illuminate\Http\Request;
 use App\Services\Interfaces\PostCatalogueServiceInterface as PostCatalogueService;
 use App\Repositories\Interfaces\PostCatalogueRepositoryInterface as PostCatalogueRepository;
@@ -14,6 +15,8 @@ class PostCatalogueController extends Controller
 {
     protected $postCatalogueService;
     protected $postCatalogueRepository;
+    protected $nestedset;
+    protected $language;
     public function __construct(
         PostCatalogueService $postCatalogueService,
         PostCatalogueRepository $postCatalogueRepository
@@ -21,6 +24,12 @@ class PostCatalogueController extends Controller
     {
         $this->postCatalogueService = $postCatalogueService;
         $this->postCatalogueRepository=$postCatalogueRepository;
+        $this->nestedset=new Nestedsetbie([
+            'table'=>'post_catalogues',
+            'foreignkey'=>'post_catalogue_id',
+            'language_id'=>1
+        ]);
+        $this->language=$this->currentLanguage();
     }
 
     /**
@@ -33,7 +42,7 @@ class PostCatalogueController extends Controller
         return view('admin.post.catalogue.index',[
            'title'=>'Danh sách nhóm bài viết',
            'model'=>'PostCatalogue',
-            'listPostCatalogues'=>$this->postCatalogueService->paginate($request)
+            'postCatalogues'=>$this->postCatalogueService->paginate($request)
         ]);
     }
 
@@ -42,20 +51,26 @@ class PostCatalogueController extends Controller
      */
     public function create()
     {
-        return view('admin.post.catalogue.add',[
-            'title'=>'Thêm mới nhóm bài viết'
+        $dropdown=$this->nestedset->Dropdown();
+        $config['seo']=config('apps.postcatalogue');
+        $config['method']='create';
+        return view('admin.post.catalogue.store',[
+            'title'=>'Thêm mới nhóm bài viết',
+            'config'=>'create',
+            'dropdown'=>$dropdown,
+            'config'=>$config
         ]);
     }
 
-    public function store(StoreLanguagesRequest $request)
+    public function store(StorePostCatalogueRequest $request)
     {
         if($this->postCatalogueService->create($request))
         {
             Session::flash('success','Thêm mới thành công');
-            return redirect()->route('createLanguage');
+            return redirect()->route('getListPostCatalogue');
         }
         Session::flash('error','Lỗi! Thêm mới không thành công');
-        return redirect()->route('createLanguage')->withInput();
+        return redirect()->route('createPostCatalogue')->withInput();
     }
 
     /**
@@ -71,25 +86,31 @@ class PostCatalogueController extends Controller
      */
     public function edit(string $id)
     {
-        $postCatalogueById=$this->postCatalogueRepository->findById($id);
-        return view('admin.language.edit',[
-            'title'=>'Sửa thành viên',
-            'languageById'=>$postCatalogueById
+        $postCatalogueById=$this->postCatalogueRepository->getPostCatalogueById($id,$this->language);
+        $dropdown=$this->nestedset->Dropdown();
+        $config['seo']=config('apps.postcatalogue');
+        $config['method']='edit';
+        return view('admin.post.catalogue.store',[
+            'title'=>'Sửa bài viết',
+            'config'=>'update',
+            'postCatalogue'=>$postCatalogueById,
+            'dropdown'=>$dropdown,
+            'config'=>$config
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateLanguagesRequest $request, string $id)
+    public function update(UpdatePostCatalogueRequest $request, string $id)
     {
         if($this->postCatalogueService->update($id,$request))
         {
             Session::flash('success','Sửa thành công');
-            return redirect()->route('getListLanguage');
+            return redirect()->route('getListPostCatalogue');
         }
         Session::flash('error','Lỗi! Sửa không thành công');
-        return redirect()->route('editLanguage',$id);
+        return redirect()->route('editPostCatalogue',$id);
     }
 
     /**

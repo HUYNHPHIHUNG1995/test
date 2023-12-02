@@ -1,7 +1,9 @@
+@extends('admin.dashboard.layout')
+@section('content')
 @include('admin.dashboard.component.breadcrumb')
 @include('admin.dashboard.component.formError')
 @php
-    $url = ($config['method'] == 'create') ? route('post.catalogue.store') : route('post.catalogue.update', $postCatalogue->id);
+    $url = ($config['method'] == 'create') ? route('postAddPostCatalogue') : route('postEditPostCatalogue', $postCatalogue->id);
 @endphp
 <form action="{{ $url }}" method="post" class="box">
     @csrf
@@ -10,14 +12,14 @@
             <div class="col-lg-9">
                 <div class="ibox">
                     <div class="ibox-title">
-                        <h5>{{ __('messages.tableHeading') }}</h5>
+                        <h5>Thông tin chung</h5>
                     </div>
                     <div class="ibox-content">
-                        @include('backend.dashboard.component.content', ['model' => ($postCatalogue) ?? null])
+                        @include('admin.dashboard.component.content')
                     </div>
                 </div>
-               @include('admin.dashboard.component.album', ['model' => ($postCatalogue) ?? null])
-               @include('admin.dashboard.component.seo', ['model' => ($postCatalogue) ?? null])
+               @include('admin.dashboard.component.album')
+               @include('admin.dashboard.component.seo')
             </div>
             <div class="col-lg-3">
                 @include('admin.post.catalogue.component.aside')
@@ -26,3 +28,14 @@
         @include('admin.dashboard.component.button')
     </div>
 </form>
+@endsection
+@section('footer')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="backend/plugins/ckfinder_2/ckfinder.js"></script>
+    <script src="backend/library/finder.js"></script>
+    <script src="backend/library/seo.js"></script>
+    <script src="backend/plugins/ckeditor/ckeditor.js"></script>
+@endsection
+@section('head')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+@endsection

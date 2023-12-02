@@ -18,11 +18,12 @@ return new class extends Migration
             $table->foreign('post_catalogue_id')->references('id')->on('post_catalogues')->onDelete('cascade');
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->string('name'); //ten bai viet
-            $table->text('description'); //mo ta
-            $table->longText('content'); //noi dung
-            $table->string('meta_title'); //tieu de seo
-            $table->string('meta_keyword'); //tu khoa seo
-            $table->text('meta_description'); //ma ta seo
+            $table->text('description')->nullable(); //mo ta
+            $table->longText('content')->nullable(); //noi dung
+            $table->string('meta_title')->nullable(); //tieu de seo
+            $table->string('meta_keyword')->nullable(); //tu khoa seo
+            $table->text('meta_description')->nullable(); //ma ta seo
+            $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });
     }

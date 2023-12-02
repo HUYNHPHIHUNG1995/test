@@ -60,7 +60,7 @@ Route::middleware(['auth'])->group(function(){
         Route::prefix('post')->group(function (){
             Route::get('list',[UserController::class,'index'])->name('getListPost');
             Route::get('create',[UserController::class,'create'])->name('createPost');
-            Route::post('store',[UserController::class,'store'])->name('postAddUser');
+            Route::post('store',[UserController::class,'store'])->name('postAddPost');
             Route::get('edit/{id}',[UserController::class,'edit'])->where(['id'=>'[0-9]+'])->name('editPost');
             Route::post('update/{id}',[UserController::class,'update'])->where(['id'=>'[0-9]+'])->name('postEditPost');
             Route::post('destroy',[UserController::class,'destroy'])->name('postDeletePost');

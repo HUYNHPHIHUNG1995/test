@@ -20,7 +20,7 @@ class LoginController extends Controller
         {
             return redirect()->route('admin');
         }
-        return view('admin.users.login',[
+        return view('admin.auth.login',[
             'title'=>'Đăng nhập hệ thống'
         ]);
     }
